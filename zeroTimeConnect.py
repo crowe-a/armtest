@@ -7,7 +7,7 @@ from pymavlink import mavutil
 
 connectinString = '127.0.0.1:14550'
 iha = connect(connectinString, wait_ready=True)
-
+komut = iha.commands
 
 def armOlVeYuksel(irtifa):
     while iha.is_armable is not True:
@@ -36,5 +36,8 @@ def armOlVeYuksel(irtifa):
         print("iha's Longitude             =  ", iha.location.global_relative_frame.lon)
 
     print("İha istenilen irtifaya yükseldi.\n")
+    time.sleep(5)
+    komut.add(Command(0, 0, 0, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, mavutil.mavlink.MAV_CMD_NAV_RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+
 
 armOlVeYuksel(5)
